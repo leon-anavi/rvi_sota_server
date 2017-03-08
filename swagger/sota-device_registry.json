@@ -127,25 +127,6 @@
         }
       }
     },
-    "/devices/{uuid}/ping": {
-      "post": {
-        "description": "Update the last seen time for a device",
-        "parameters": [
-          {
-            "name": "uuid",
-            "description": "The uuid of an existing device object",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/mydevice/{uuid}/packages": {
       "put": {
         "description": "Mark a list of packages as installed on a device. Note that this does not install anything.\nIt only updates device registry's database of installed packages. This endpoint is for ingesting the list of\ninstalled packages sent from the in-vehicle client.\n",
