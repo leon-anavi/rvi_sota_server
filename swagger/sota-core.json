@@ -335,7 +335,7 @@
           "201": {
             "description": "The new uuid of the created campaign",
             "schema": {
-              "$ref": "#/definitions/uuid"
+              "$ref": "#/definitions/Strings/properties/uuid"
             }
           }
         }
@@ -1152,43 +1152,23 @@
     }
   },
   "definitions": {
-    "uuid": {
-      "type": "string",
-      "description": "32 lowercase hexadecimal digits, displayed in five groups separated by hyphens"
-    },
-    "namespace": {
-      "type": "string",
-      "description": "The namespace scope of the request. Default value is 'default'"
-    },
-    "DeviceId": {
-      "type": "string",
-      "description": "A 17-digit VIN. May contain only capital letters and digits. Cannot contain the letters I, O, or Q."
-    },
-    "DeviceName": {
-      "type": "string",
-      "description": "Custom name for a device"
-    },
-    "DeviceType": {
-      "type": "string",
-      "description": "Valid values are \"Vehicle\" and \"Other\""
-    },
     "Device": {
       "type": "object",
       "properties": {
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "deviceId": {
-          "$ref": "#/definitions/DeviceId"
+          "$ref": "#/definitions/Strings/properties/DeviceId"
         },
         "id": {
-          "$ref": "#/definitions/uuid"
+          "$ref": "#/definitions/Strings/properties/uuid"
         },
         "deviceName": {
-          "$ref": "#/definitions/DeviceName"
+          "$ref": "#/definitions/Strings/properties/DeviceName"
         },
         "deviceType": {
-          "$ref": "#/definitions/DeviceType"
+          "$ref": "#/definitions/Strings/properties/DeviceType"
         },
         "lastseen": {
           "type": "string",
@@ -1201,7 +1181,7 @@
       "type": "object",
       "properties": {
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "id": {
           "$ref": "#/definitions/packageId"
@@ -1267,7 +1247,7 @@
           "description": "The UUID of the update"
         },
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "packageId": {
           "$ref": "#/definitions/packageId"
@@ -1374,10 +1354,10 @@
       "type": "object",
       "properties": {
         "id": {
-          "$ref": "#/definitions/uuid"
+          "$ref": "#/definitions/Strings/properties/uuid"
         },
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "packageId": {
           "$ref": "#/definitions/packageId"
@@ -1427,7 +1407,7 @@
       "type": "object",
       "properties": {
         "id": {
-          "$ref": "#/definitions/uuid"
+          "$ref": "#/definitions/Strings/properties/uuid"
         },
         "launched": {
           "type": "boolean",
@@ -1465,10 +1445,10 @@
       "type": "object",
       "properties": {
         "group": {
-          "$ref": "#/definitions/uuid"
+          "$ref": "#/definitions/Strings/properties/uuid"
         },
         "updateRequest": {
-          "$ref": "#/definitions/uuid"
+          "$ref": "#/definitions/Strings/properties/uuid"
         }
       }
     },
@@ -1509,7 +1489,7 @@
         "groups": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/uuid"
+            "$ref": "#/definitions/Strings/properties/uuid"
           },
           "description": "The uuids of the groups for the campaign"
         }
@@ -1519,10 +1499,10 @@
       "type": "object",
       "properties": {
         "groupId": {
-          "$ref": "#/definitions/uuid"
+          "$ref": "#/definitions/Strings/properties/uuid"
         },
         "updateId": {
-          "$ref": "#/definitions/uuid"
+          "$ref": "#/definitions/Strings/properties/uuid"
         },
         "deviceCount": {
           "type": "integer",
@@ -1549,6 +1529,32 @@
     "SystemInfo": {
       "type": "object",
       "description": "This is a free-form JSON blob describing the hardware components of the client system. \nThe format expected by the server is the output of `lshw -json -sanitize`.\n"
+    },
+    "Strings": {
+      "type": "object",
+      "description": "Various string types referenced elsewhere in the spec.",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "description": "32 lowercase hexadecimal digits, displayed in five groups separated by hyphens"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "The namespace scope of the request. Default value is 'default'"
+        },
+        "DeviceId": {
+          "type": "string",
+          "description": "A 17-digit VIN. May contain only capital letters and digits. Cannot contain the letters I, O, or Q."
+        },
+        "DeviceName": {
+          "type": "string",
+          "description": "Custom name for a device"
+        },
+        "DeviceType": {
+          "type": "string",
+          "description": "Valid values are \"Vehicle\" and \"Other\""
+        }
+      }
     }
   }
 }

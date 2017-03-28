@@ -32,7 +32,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/uuid"
+                "$ref": "#/definitions/Strings/properties/uuid"
               }
             }
           }
@@ -661,19 +661,11 @@
     }
   },
   "definitions": {
-    "uuid": {
-      "type": "string",
-      "description": "32 lowercase hexadecimal digits, displayed in five groups separated by hyphens"
-    },
-    "namespace": {
-      "type": "string",
-      "description": "The namespace scope of the request. Default value is 'default'"
-    },
     "resolverPackage": {
       "type": "object",
       "properties": {
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "id": {
           "$ref": "#/definitions/packageId"
@@ -705,7 +697,7 @@
       "type": "object",
       "properties": {
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "partNumber": {
           "type": "string",
@@ -726,7 +718,7 @@
       "type": "object",
       "properties": {
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "name": {
           "type": "string",
@@ -743,7 +735,7 @@
       "description": "An association between a package and a filter.",
       "properties": {
         "namespace": {
-          "$ref": "#/definitions/namespace"
+          "$ref": "#/definitions/Strings/properties/namespace"
         },
         "packageName": {
           "type": "string"
@@ -779,6 +771,20 @@
         "lastModified": {
           "type": "string",
           "format": "dateTime"
+        }
+      }
+    },
+    "Strings": {
+      "type": "object",
+      "description": "Various string types referenced elsewhere in the spec.",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "description": "32 lowercase hexadecimal digits, displayed in five groups separated by hyphens"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "The namespace scope of the request. Default value is 'default'"
         }
       }
     }
