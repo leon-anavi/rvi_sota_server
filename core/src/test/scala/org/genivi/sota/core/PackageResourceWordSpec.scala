@@ -26,7 +26,7 @@ import slick.driver.MySQLDriver.api._
 import org.genivi.sota.data.{Namespaces, PackageId}
 import org.genivi.sota.http.NamespaceDirectives
 import org.genivi.sota.data.Namespace
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.scalatest.concurrent.PatienceConfiguration
 
 /**

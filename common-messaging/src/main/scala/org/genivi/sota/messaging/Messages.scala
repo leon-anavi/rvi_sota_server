@@ -4,25 +4,17 @@ import java.time.Instant
 import java.util.UUID
 
 import akka.http.scaladsl.model.Uri
-import cats.data.Xor
 import cats.syntax.show._
-import io.circe.generic.decoding.DerivedDecoder
-import io.circe.generic.encoding.DerivedObjectEncoder
+import com.advancedtelematic.libats.messaging.Messages.MessageLike
 import io.circe.{Decoder, Encoder}
-import io.circe.parser._
 import org.genivi.sota.data.DeviceStatus.DeviceStatus
 import org.genivi.sota.marshalling.CirceInstances._
 import org.genivi.sota.data._
 import org.genivi.sota.data.UpdateType.UpdateType
-import shapeless.Lazy
-
-import scala.reflect.ClassTag
 
 object Messages {
 
   import Device._
-
-  sealed trait BusMessage
 
   val partitionPrefixSize = 256
 
@@ -38,7 +30,7 @@ object Messages {
   final case class DeviceSeen(
     namespace: Namespace,
     uuid: Uuid,
-    lastSeen: Instant) extends BusMessage
+    lastSeen: Instant)
 
   final case class DeviceCreated(
     namespace: Namespace,
@@ -46,23 +38,23 @@ object Messages {
     deviceName: DeviceName,
     deviceId: Option[DeviceId],
     deviceType: DeviceType,
-    timestamp: Instant = Instant.now()) extends BusMessage
+    timestamp: Instant = Instant.now())
 
   final case class DevicePublicCredentialsSet(
     namespace: Namespace,
     uuid: Uuid,
     credentials: String,
-    timestamp: Instant = Instant.now()) extends BusMessage
+    timestamp: Instant = Instant.now())
 
   final case class DeviceActivated(
     namespace: Namespace,
     uuid: Uuid,
-    at: Instant) extends BusMessage
+    at: Instant)
 
   final case class DeviceDeleted(
     namespace: Namespace,
     uuid: Uuid,
-    timestamp: Instant = Instant.now()) extends BusMessage
+    timestamp: Instant = Instant.now())
 
   final case class PackageCreated(
     namespace: Namespace,
@@ -70,7 +62,7 @@ object Messages {
     description: Option[String],
     vendor: Option[String],
     signature: Option[String],
-    timestamp: Instant = Instant.now()) extends BusMessage
+    timestamp: Instant = Instant.now())
 
   final case class TreehubCommit (
     ns: Namespace,
@@ -78,19 +70,19 @@ object Messages {
     refName: String,
     description: String,
     size: Int,
-    uri: String) extends BusMessage
+    uri: String)
 
   final case class PackageBlacklisted(
     namespace: Namespace,
     packageId: PackageId,
-    timestamp: Instant = Instant.now()) extends BusMessage
+    timestamp: Instant = Instant.now())
 
-  final case class ImageStorageUsage(namespace: Namespace, timestamp: Instant, byteCount: Long) extends BusMessage
+  final case class ImageStorageUsage(namespace: Namespace, timestamp: Instant, byteCount: Long)
 
-  final case class PackageStorageUsage(namespace: Namespace, timestamp: Instant, byteCount: Long) extends BusMessage
+  final case class PackageStorageUsage(namespace: Namespace, timestamp: Instant, byteCount: Long)
 
   final case class BandwidthUsage(id: UUID, namespace: Namespace, timestamp: Instant, byteCount: Long,
-                                  updateType: UpdateType, updateId: String) extends BusMessage
+                                  updateType: UpdateType, updateId: String)
 
   //Create custom UpdateSpec here instead of using org.genivi.sota.core.data.UpdateSpec as that would require moving
   //multiple RVI messages into SotaCommon. Furthermore, for now this class contains just the info required by the
@@ -100,58 +92,20 @@ object Messages {
     device: Uuid,
     packageUuid: UUID,
     status: String,
-    timestamp: Instant = Instant.now()) extends BusMessage
+    timestamp: Instant = Instant.now())
 
-  final case class UserCreated(id: String) extends BusMessage
+  final case class UserCreated(id: String)
 
-  final case class UserLogin(id: String, timestamp: Instant) extends BusMessage
+  final case class UserLogin(id: String, timestamp: Instant)
 
   final case class DeviceUpdateStatus(namespace: Namespace,
                                       device: Uuid,
                                       status: DeviceStatus,
-                                      timestamp: Instant = Instant.now()) extends BusMessage
+                                      timestamp: Instant = Instant.now())
 
   final case class CampaignLaunched(namespace: Namespace, updateId: Uuid, devices: Set[Uuid],
                                     pkgUri: UriWithSimpleEncoding, pkg: PackageId,
-                                    pkgSize: Long, pkgChecksum: String) extends BusMessage
-
-  implicit class StreamNameOp[T <: Class[_]](v: T) {
-    def streamName: String = {
-      v.getSimpleName.filterNot(c => List('$').contains(c))
-    }
-  }
-
-  implicit class StreamNameInstanceOp[T <: BusMessage](v: T) {
-    def streamName: String = v.getClass.streamName
-  }
-
-  object MessageLike {
-    def apply[T](idFn: T => String)
-                (implicit ct: ClassTag[T],
-                 encode: Lazy[DerivedObjectEncoder[T]],
-                 decode: Lazy[DerivedDecoder[T]]): MessageLike[T] = new MessageLike[T] {
-      override def id(v: T): String = idFn(v)
-
-      import io.circe.generic.semiauto._
-
-      override implicit val encoder: Encoder[T] = deriveEncoder[T]
-      override implicit val decoder: Decoder[T] = deriveDecoder[T]
-    }
-  }
-
-  abstract class MessageLike[T]()(implicit val tag: ClassTag[T]) {
-    def streamName: String = tag.runtimeClass.streamName
-
-    def id(v: T): String
-
-    def partitionKey(v: T): String = id(v).take(partitionPrefixSize)
-
-    def parse(json: String): io.circe.Error Xor T = decode[T](json)
-
-    implicit val encoder: Encoder[T]
-
-    implicit val decoder: Decoder[T]
-  }
+                                    pkgSize: Long, pkgChecksum: String)
 
   implicit val deviceSeenMessageLike = MessageLike[DeviceSeen](_.uuid.show)
 

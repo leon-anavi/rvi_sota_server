@@ -7,7 +7,7 @@ package org.genivi.sota.core.rvi
 import io.circe._
 import org.genivi.sota.core.resolver.ConnectivityClient
 import java.time.Instant
-
+import io.circe.shapes._
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.util.Random
@@ -22,6 +22,11 @@ class JsonRpcRviClient(transport: Json => Future[Json], ec: ExecutionContext) ex
   import io.circe.generic.auto._
   import org.genivi.sota.core.jsonrpc.client
   import shapeless.record._
+  import io.circe.syntax._
+  import io.circe.generic._
+  import io.circe.generic.util._
+  import io.circe._
+
 
   /**
    * Send a JSON-RPC formatted message to RVI.

@@ -8,7 +8,7 @@ import org.genivi.sota.core.campaigns.CampaignLauncher
 import org.genivi.sota.core.db.AutoInstalls
 import org.genivi.sota.core.UpdateService
 import org.genivi.sota.data.{Namespace, PackageId, Uuid}
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import slick.driver.MySQLDriver.api._
 
 import scala.concurrent.{ExecutionContext, Future}

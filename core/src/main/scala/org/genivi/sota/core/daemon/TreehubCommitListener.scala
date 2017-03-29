@@ -13,15 +13,17 @@ import com.advancedtelematic.libats.data.RefinedUtils.RefineTry
 import com.advancedtelematic.libtuf.data.TufDataType.{Checksum, HashMethod, ValidChecksum}
 import com.advancedtelematic.libtuf.reposerver.ReposerverClient
 import java.util.UUID
+
 import org.genivi.sota.core.Settings
 import org.genivi.sota.core.UpdateService
 import org.genivi.sota.core.data.Package
 import org.genivi.sota.core.storage.StoragePipeline
 import org.genivi.sota.data.PackageId
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages._
 import org.slf4j.LoggerFactory
-import scala.concurrent.{Future, ExecutionContext}
+
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 import slick.driver.MySQLDriver.api.Database
 

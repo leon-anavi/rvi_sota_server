@@ -9,6 +9,7 @@ import io.circe.DecodingFailure
 import io.circe._
 import org.genivi.sota.marshalling.CirceMarshallingSupport
 import scala.concurrent.ExecutionContext
+import cats.syntax.either._
 
 import scala.concurrent.Future
 

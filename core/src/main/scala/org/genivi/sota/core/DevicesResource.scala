@@ -19,7 +19,7 @@ import org.genivi.sota.common.DeviceRegistry
 import org.genivi.sota.core.data._
 import org.genivi.sota.core.resolver.{ConnectivityClient, ExternalResolverClient}
 import org.genivi.sota.data.{Device, DeviceUpdateStatus, Namespace, Uuid}
-import org.genivi.sota.http.{AuthedNamespaceScope, ErrorHandler, Scopes}
+import org.genivi.sota.http.ErrorHandler
 import org.genivi.sota.http.Errors.MissingEntity
 import org.genivi.sota.marshalling.CirceMarshallingSupport
 import org.genivi.sota.marshalling.RefinedMarshallingSupport._
@@ -28,6 +28,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
 import slick.driver.MySQLDriver.api.Database
 import Device._
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.data.DeviceStatus.DeviceStatus
 
 case class DeviceSearchResult(
@@ -52,6 +53,7 @@ class DevicesResource(db: Database, client: ConnectivityClient,
   import Directives._
   import org.genivi.sota.http.UuidDirectives._
   import system.dispatcher
+  import org.genivi.sota.http.SomeMagic._
 
   implicit val _db = db
 

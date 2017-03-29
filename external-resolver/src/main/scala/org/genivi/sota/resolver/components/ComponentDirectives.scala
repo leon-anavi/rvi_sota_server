@@ -17,10 +17,9 @@ import org.genivi.sota.resolver.common.RefinementDirectives.refinedPartNumber
 import scala.concurrent.ExecutionContext
 import slick.driver.MySQLDriver.api._
 import Directives._
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.data.Namespace
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.http.ErrorHandler
-import org.genivi.sota.http.Scopes
 
 /**
  * API routes for creating, deleting, and listing components.

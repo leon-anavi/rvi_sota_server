@@ -9,13 +9,13 @@ import akka.http.scaladsl.marshalling.Marshaller._
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import io.circe.generic.auto._
 import org.genivi.sota.core.data._
 import org.genivi.sota.core.data.client._
 import org.genivi.sota.core.db.{Packages, UpdateRequests, UpdateSpecs}
 import org.genivi.sota.core.resolver.ExternalResolverClient
 import org.genivi.sota.data.{Namespace, Uuid}
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.marshalling.CirceMarshallingSupport
 import slick.driver.MySQLDriver.api.Database
 
@@ -32,6 +32,7 @@ class UpdateRequestsResource(db: Database, resolver: ExternalResolverClient, upd
   import system.dispatcher
   import ClientUpdateRequest._
   import org.genivi.sota.rest.RequestConversions._
+  import org.genivi.sota.http.SomeMagic._
 
   implicit val _db = db
 

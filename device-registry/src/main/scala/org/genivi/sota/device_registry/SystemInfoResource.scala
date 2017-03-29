@@ -8,12 +8,12 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{Directive1, Route}
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import io.circe.Json
 import org.genivi.sota.data.Uuid
 import org.genivi.sota.device_registry.db._
 import org.genivi.sota.device_registry.common.Errors.MissingSystemInfo
 import org.genivi.sota.http.UuidDirectives.extractUuid
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
 import org.slf4j.LoggerFactory
 import slick.driver.MySQLDriver.api._

@@ -9,13 +9,13 @@ import akka.http.scaladsl.server.{AuthorizationFailedRejection, Directive1, Dire
 import Directives._
 import eu.timepit.refined.api.Refined
 import org.genivi.sota.common.DeviceRegistry
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.device_registry.common.{Errors => DeviceRegistryErrors}
 import akka.http.scaladsl.marshalling.Marshaller._
-import org.genivi.sota.http.UuidDirectives.extractUuid
+import com.advancedtelematic.libats.auth.AuthedNamespaceScope
 import org.genivi.sota.marshalling.RefinedMarshallingSupport._
-
+import org.genivi.sota.http.UuidDirectives._
 import scala.concurrent.ExecutionContext
+import org.genivi.sota.http.SomeMagic._
 
 trait DeviceDirectives {
   val deviceRegistry: DeviceRegistry

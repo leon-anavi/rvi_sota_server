@@ -6,11 +6,10 @@ package org.genivi.sota.device_registry
 
 import akka.http.scaladsl.server.{Directives, Route}
 import akka.http.scaladsl.testkit.{RouteTestTimeout, ScalatestRouteTest}
-import cats.data.Xor
+import com.advancedtelematic.libats.auth.AuthedNamespaceScope
 import org.genivi.sota.core.DatabaseSpec
 import org.genivi.sota.data._
 import org.genivi.sota.device_registry.db.DeviceRepository
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.http.UuidDirectives.{allowExtractor, extractUuid}
 import org.genivi.sota.messaging.MessageBus
 import org.scalatest.prop.PropertyChecks
@@ -51,8 +50,8 @@ trait ResourceSpec extends
 
   lazy val messageBus =
     MessageBus.publisher(system, system.settings.config) match {
-      case Xor.Right(v) => v
-      case Xor.Left(err) => throw err
+      case Right(v) => v
+      case Left(err) => throw err
     }
 
   // Route

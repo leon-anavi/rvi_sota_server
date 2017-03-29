@@ -8,17 +8,17 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{Directive1, Route}
-import cats.data.Xor
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import io.circe.generic.auto._
 import org.genivi.sota.common.DeviceRegistry
 import org.genivi.sota.core.campaigns.{CampaignLauncher, CampaignStats}
 import org.genivi.sota.core.data.Campaign
 import org.genivi.sota.core.db.Campaigns
 import org.genivi.sota.data.{Namespace, PackageId}
-import org.genivi.sota.http.{AuthedNamespaceScope, ErrorHandler, Scopes}
+import org.genivi.sota.http.ErrorHandler
 import org.genivi.sota.http.UuidDirectives._
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import slick.driver.MySQLDriver.api.Database
 
 import scala.concurrent.Future
@@ -30,6 +30,7 @@ class CampaignResource(namespaceExtractor: Directive1[AuthedNamespaceScope],
   import Campaign._
   import StatusCodes.{Success => _, _}
   import system.dispatcher
+  import org.genivi.sota.http.SomeMagic._
 
   def cancel(id: Campaign.Id): Route = {
     complete(CampaignLauncher.cancel(id))
@@ -49,8 +50,8 @@ class CampaignResource(namespaceExtractor: Directive1[AuthedNamespaceScope],
 
   def launch(id: Campaign.Id, lc: LaunchCampaign): Route = {
     lc.isValid match {
-      case Xor.Right(()) => complete(CampaignLauncher.launch(deviceRegistry, updateService, id, lc, messageBus))
-      case Xor.Left(err) => complete(Conflict -> err)
+      case Right(()) => complete(CampaignLauncher.launch(deviceRegistry, updateService, id, lc, messageBus))
+      case Left(err) => complete(Conflict -> err)
     }
   }
 

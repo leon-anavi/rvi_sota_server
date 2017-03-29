@@ -11,7 +11,7 @@ import org.genivi.sota.core.UpdateService
 import org.genivi.sota.core.autoinstall.AutoInstall
 import org.genivi.sota.core.data.Package
 import org.genivi.sota.core.db.Packages
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages._
 import scala.concurrent.{Future, ExecutionContext}
 import slick.driver.MySQLDriver.api.Database

@@ -5,25 +5,24 @@
 package org.genivi.sota.core.data
 
 import cats.Show
-import cats.data.Xor
 import eu.timepit.refined.string._
 import io.circe._
 import java.time.Instant
 import java.util.UUID
+
 import org.genivi.sota.core.SotaCoreErrors
 import org.genivi.sota.data.{Namespace, PackageId, Uuid}
 import slick.driver.MySQLDriver.api._
-
 import Campaign._
 
 case class Campaign (meta: CampaignMeta, packageId: Option[PackageId], groups: Seq[CampaignGroup]) {
-  def canLaunch(): Throwable Xor Unit = {
+  def canLaunch(): Throwable Either Unit = {
     if (!meta.packageUuid.isDefined || groups.size < 1) {
-      Xor.Left(SotaCoreErrors.CantLaunchCampaign)
+      Left(SotaCoreErrors.CantLaunchCampaign)
     } else if (meta.launched) {
-      Xor.Left(SotaCoreErrors.CampaignLaunched)
+      Left(SotaCoreErrors.CampaignLaunched)
     } else {
-      Xor.Right(())
+      Right(())
     }
   }
 }
@@ -52,14 +51,14 @@ object Campaign {
     description: Option[String] = None,
     requestConfirmation: Option[Boolean] = None
   ) {
-    def isValid(): String Xor Unit = (startDate, endDate) match {
+    def isValid(): String Either Unit = (startDate, endDate) match {
       case (Some(sd), Some(ed)) =>
         if(sd.isBefore(ed)) {
-          Xor.Right(())
+          Right(())
         } else {
-          Xor.Left("The LaunchCampaign object is not valid because the start date is not before end date.")
+          Left("The LaunchCampaign object is not valid because the start date is not before end date.")
         }
-      case _ => Xor.Right(())
+      case _ => Right(())
     }
   }
 

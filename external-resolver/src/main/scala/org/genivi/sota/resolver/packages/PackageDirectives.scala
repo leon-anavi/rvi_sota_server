@@ -12,14 +12,13 @@ import eu.timepit.refined.api.Refined
 import io.circe.generic.auto._
 import org.genivi.sota.data.Namespace._
 import org.genivi.sota.data.{Namespace, PackageId}
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.http.ErrorHandler
-import org.genivi.sota.http.Scopes
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
 import org.genivi.sota.resolver.common.RefinementDirectives._
 import org.genivi.sota.resolver.db.{Package, PackageFilterRepository, PackageRepository}
 import org.genivi.sota.resolver.filters.Filter
 import akka.http.scaladsl.unmarshalling.{FromStringUnmarshaller, Unmarshaller}
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.common.DeviceRegistry
 import org.genivi.sota.rest.ResponseConversions._
 import org.genivi.sota.resolver.db.PackageFilterResponse._

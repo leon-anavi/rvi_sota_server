@@ -12,16 +12,16 @@ import akka.http.scaladsl.model.{StatusCodes, Uri}
 import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
 import cats.syntax.show._
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.string.Regex
 import io.circe.generic.auto._
 import org.genivi.sota.data._
 import org.genivi.sota.device_registry.db._
 import org.genivi.sota.http.UuidDirectives.extractUuid
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
 import org.genivi.sota.marshalling.RefinedMarshallingSupport._
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages.{DeviceCreated, DeviceDeleted}
 import org.genivi.sota.rest.Validation._
 import org.genivi.sota.unmarshalling.AkkaHttpUnmarshallingSupport._

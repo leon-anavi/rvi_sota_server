@@ -17,6 +17,8 @@ import eu.timepit.refined.api.Refined
 import eu.timepit.refined.string.Regex
 import io.circe.generic.auto._
 import java.util.UUID
+
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.core.data.Package
 import org.genivi.sota.core.data.PackageResponse._
 import org.genivi.sota.core.db._
@@ -24,12 +26,13 @@ import org.genivi.sota.core.storage.PackageStorage
 import org.genivi.sota.core.storage.PackageStorage.PackageStorageOp
 import org.genivi.sota.core.storage.StoragePipeline
 import org.genivi.sota.data.{Namespace, PackageId}
-import org.genivi.sota.http.{AuthedNamespaceScope, ErrorHandler, Scopes}
+import org.genivi.sota.http.ErrorHandler
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
 import org.genivi.sota.marshalling.RefinedMarshallingSupport._
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.rest.ResponseConversions._
 import org.genivi.sota.rest.Validation._
+
 import scala.concurrent.Future
 import slick.driver.MySQLDriver.api.Database
 
@@ -64,6 +67,8 @@ class PackagesResource(updateService: UpdateService,
 
   val packageStorageOp: PackageStorageOp = new PackageStorage().store _
   lazy val storagePipeline = new StoragePipeline(updateService)
+
+  import org.genivi.sota.http.SomeMagic._
 
   /**
     * An ota client GET a Seq of [[Package]] either from regex search, or from table scan.

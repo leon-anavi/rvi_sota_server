@@ -14,12 +14,12 @@ import akka.stream.ActorMaterializer
 import io.circe.generic.auto._
 import java.util.Base64
 
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.data.{DeviceT, Namespace, Uuid}
 import org.genivi.sota.device_registry.db.{DeviceRepository, PublicCredentialsRepository}
 import org.genivi.sota.device_registry.common.Errors
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages.{DeviceCreated, DevicePublicCredentialsSet}
 import slick.driver.MySQLDriver.api._
 

@@ -19,7 +19,6 @@ import org.genivi.sota.data._
 import java.time.{Duration, Instant}
 import java.util.UUID
 
-import cats.data.Xor
 import org.genivi.sota.messaging.MessageBus
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.concurrent.ScalaFutures.{PatienceConfig, convertScalaFuture}
@@ -173,8 +172,8 @@ trait SotaCore {
 
   lazy val messageBus =
     MessageBus.publisher(system, system.settings.config) match {
-      case Xor.Right(v) => v
-      case Xor.Left(error) => throw error
+      case Right(v) => v
+      case Left(error) => throw error
     }
 
   def sotaRviServices() : Route = {

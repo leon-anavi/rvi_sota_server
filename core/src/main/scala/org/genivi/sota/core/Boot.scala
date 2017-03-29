@@ -12,7 +12,9 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{Directive0, Directive1, Route}
 import akka.http.scaladsl.util.FastFuture
 import akka.stream.ActorMaterializer
-import cats.data.Xor
+import com.advancedtelematic.libats.auth.AuthedNamespaceScope
+import com.advancedtelematic.libats.messaging.daemon.MessageBusListenerActor.Subscribe
+import com.advancedtelematic.libats.messaging.{MessageBus, MessageBusPublisher, MessageListener}
 import com.advancedtelematic.libtuf.reposerver.ReposerverHttpClient
 import com.typesafe.config.ConfigFactory
 import org.genivi.sota.client.DeviceRegistryClient
@@ -26,10 +28,8 @@ import org.genivi.sota.db.{BootMigrations, DatabaseConfig}
 import org.genivi.sota.http.LogDirectives._
 import org.genivi.sota.http._
 import org.genivi.sota.messaging.Messages.TreehubCommit
-import org.genivi.sota.messaging.daemon.MessageBusListenerActor.Subscribe
-import org.genivi.sota.messaging.kafka.MessageListener
-import org.genivi.sota.messaging.{MessageBus, MessageBusPublisher}
 import org.genivi.sota.monitoring.{DatabaseMetrics, MetricsSupport}
+
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 import slick.driver.MySQLDriver.api.Database
@@ -186,8 +186,8 @@ object Boot extends BootApp
 
   val messageBusPublisher: MessageBusPublisher =
     MessageBus.publisher(system, config) match {
-      case Xor.Right(c) => c
-      case Xor.Left(err) =>
+      case Right(c) => c
+      case Left(err) =>
         log.error("Could not initialize message bus client", err)
         MessageBusPublisher.ignore
     }

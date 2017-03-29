@@ -13,7 +13,6 @@ import com.typesafe.sbt.packager.Keys._
 import com.typesafe.sbt.web._
 
 object SotaBuild extends Build {
-
   lazy val UnitTests = config("ut") extend Test
 
   lazy val IntegrationTests = config("it") extend Test
@@ -51,7 +50,7 @@ object SotaBuild extends Build {
 
   lazy val lintOptions = Seq(
     scalacOptions in Compile ++= Seq(
-      "-Ywarn-unused-import",
+//      "-Ywarn-unused-import",
       "-Xlint:-missing-interpolator",
       "-Ywarn-dead-code",
       "-Yno-adapted-args"
@@ -75,8 +74,9 @@ object SotaBuild extends Build {
   // the sub-projects
   lazy val common = Project(id = "sota-common", base = file("common"))
     .settings(basicSettings ++ compilerSettings ++ lintOptions)
+    .settings(libraryDependencies += Dependencies.Cats)
     .settings(libraryDependencies ++= Dependencies.JsonWebSecurity ++ Dependencies.Rest ++ Dependencies.DropwizardMetrics :+ Dependencies.AkkaHttpCirceJson :+ Dependencies.Refined :+ Dependencies.CommonsCodec)
-    .dependsOn(commonData)
+    .dependsOn(commonData, Dependencies.LibAtsAuth)
     .settings(Publish.settings)
 
   lazy val commonData = Project(id = "sota-common-data", base = file("common-data"))
@@ -123,7 +123,7 @@ object SotaBuild extends Build {
 
   lazy val core = Project(id = "sota-core", base = file("core"))
     .settings( commonSettings ++ Migrations.settings ++ lintOptions ++ Seq(
-      libraryDependencies ++= Dependencies.Rest ++ Dependencies.Circe :+ Dependencies.Scalaz :+ Dependencies.Flyway :+ Dependencies.AmazonS3 :+ Dependencies.LibTuf :+ Dependencies.LibAts,
+      libraryDependencies ++= Dependencies.Rest ++ Dependencies.Circe :+ Dependencies.Flyway :+ Dependencies.AmazonS3 :+ Dependencies.LibTuf :+ Dependencies.LibAts,
       testOptions in UnitTests += Tests.Argument(TestFrameworks.ScalaTest, "-l", "RequiresRvi", "-l", "IntegrationTest"),
       testOptions in IntegrationTests += Tests.Argument(TestFrameworks.ScalaTest, "-n", "RequiresRvi", "-n", "IntegrationTest"),
       parallelExecution in Test := true,
@@ -135,7 +135,7 @@ object SotaBuild extends Build {
     .settings(inConfig(UnitTests)(Defaults.testTasks): _*)
     .settings(inConfig(IntegrationTests)(Defaults.testTasks): _*)
     .configs(IntegrationTests, UnitTests)
-    .dependsOn(common, commonData, commonTest % "test", commonDbTest % "test", commonClient, commonMessaging)
+    .dependsOn(common, commonData, commonTest % "test", commonDbTest % "test", commonClient, commonMessaging, Dependencies.LibAtsAuth)
     .enablePlugins(Packaging.plugins: _*)
     .settings(Packaging.settings)
     .enablePlugins(BuildInfoPlugin)
@@ -152,7 +152,6 @@ object SotaBuild extends Build {
       parallelExecution := false,
       parallelExecution in IntegrationTests := false,
       parallelExecution in BrowserTests := false,
-      resolvers += "scalaz-bintray"  at "http://dl.bintray.com/scalaz/releases",
       dockerExposedPorts := Seq(9000),
       libraryDependencies ++= Seq (
         "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test", // https://github.com/playframework/scalatestplus-play
@@ -206,7 +205,7 @@ object SotaBuild extends Build {
     .settings(basicSettings ++ compilerSettings ++ lintOptions ++ Seq(
       libraryDependencies ++= Dependencies.Circe ++ Dependencies.Akka :+ Dependencies.Nats :+ Dependencies.Kafka
     ))
-    .dependsOn(common, commonData)
+    .dependsOn(common, commonData, Dependencies.LibAtsMessaging)
     .settings(Publish.settings)
 
   lazy val sota = Project(id = "sota", base = file("."))
@@ -224,9 +223,9 @@ object Dependencies {
 
   val AkkaHttpVersion = "10.0.3"
 
-  val CirceVersion = "0.4.1"
+  val CirceVersion = "0.7.0"
 
-  val AkkaHttpCirceVersion = "1.7.0"
+  val AkkaHttpCirceVersion = "1.12.0"
 
   val LogbackVersion = "1.1.3"
 
@@ -234,7 +233,7 @@ object Dependencies {
 
   val AWSVersion = "1.11.15"
 
-  val JsonWebSecurityVersion = "0.3.1"
+  val JsonWebSecurityVersion = "0.4.2"
 
   val libTufV = "0.0.1-53-ge577c3e"
 
@@ -272,13 +271,13 @@ object Dependencies {
     "io.circe" %% "circe-core" % CirceVersion,
     "io.circe" %% "circe-generic" % CirceVersion,
     "io.circe" %% "circe-parser" % CirceVersion,
-    "io.circe" %% "circe-java8" % CirceVersion
+    "io.circe" %% "circe-java8" % CirceVersion,
+    "io.circe" %% "circe-shapes" % CirceVersion
   )
 
   lazy val Refined = "eu.timepit" %% "refined" % "0.3.1"
 
-  lazy val Scalaz = "org.scalaz" %% "scalaz-core" % "7.1.3"
-  lazy val Cats   = "org.spire-math" %% "cats" % "0.3.0"
+  lazy val Cats = "org.typelevel" %% "cats-core" % "0.9.0"
 
   def ScalaTest(conf: Configuration = Test) = "org.scalatest" %% "scalatest" % "2.2.4" % conf
 
@@ -331,4 +330,7 @@ object Dependencies {
 
   lazy val LibAts = "com.advancedtelematic" %% "libats" % libAtsV
 
+  lazy val LibAtsAuth = (ProjectRef(file("/home/simao/ats/libats"), "libats_auth"))
+
+  lazy val LibAtsMessaging = (ProjectRef(file("/home/simao/ats/libats"), "libats_messaging"))
 }

@@ -35,7 +35,14 @@ class LocalPackageStore()(implicit val system: ActorSystem, val mat: ActorMateri
 
     FileIO
       .toPath(path)
-      .mapMaterializedValue(_.map(result => (uri, result.count)))
+      .mapMaterializedValue {
+        _.flatMap { result =>
+          if(result.wasSuccessful)
+            Future.successful((uri, result.count))
+          else
+            Future.failed(result.getError)
+        }
+      }
   }
 
   override def store(packageId: PackageId,

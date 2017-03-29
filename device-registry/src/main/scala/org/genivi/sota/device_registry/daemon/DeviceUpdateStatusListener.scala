@@ -4,7 +4,7 @@ import java.time.Instant
 
 import org.genivi.sota.data.UpdateStatus
 import org.genivi.sota.device_registry.db.DeviceRepository
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages.{DeviceUpdateStatus, UpdateSpec}
 import slick.driver.MySQLDriver.api._
 

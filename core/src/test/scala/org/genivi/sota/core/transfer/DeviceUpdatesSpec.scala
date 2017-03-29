@@ -12,7 +12,7 @@ import org.genivi.sota.core.db._
 import org.genivi.sota.core.rvi.OperationResult
 import org.genivi.sota.core.rvi.UpdateReport
 import org.genivi.sota.data.{DeviceGenerators, Namespaces, UpdateStatus, Uuid}
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.scalacheck.Gen
 import org.scalatest._
 import org.scalatest.concurrent.ScalaFutures

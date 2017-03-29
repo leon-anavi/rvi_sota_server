@@ -30,13 +30,13 @@ import org.genivi.sota.core.transfer.{DefaultUpdateNotifier, PackageDownloadProc
 import org.genivi.sota.data.{Namespace, PackageId, UpdateType, Uuid}
 import slick.driver.MySQLDriver.api.Database
 import cats.syntax.show.toShowOps
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher._
 import org.genivi.sota.core.data.client.PendingUpdateRequest._
 import UpdateSpec._
 import org.genivi.sota.messaging.Messages.{BandwidthUsage, DeviceSeen}
 import org.genivi.sota.rest.ResponseConversions._
-import MessageBusPublisher._
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.core.campaigns.CampaignLauncher
 
 import scala.concurrent.Future
@@ -55,6 +55,7 @@ class DeviceUpdatesResource(db: Database,
   import org.genivi.sota.http.UuidDirectives._
   import org.genivi.sota.marshalling.CirceMarshallingSupport._
   import org.genivi.sota.http.ErrorHandler._
+  import org.genivi.sota.http.SomeMagic._
 
   implicit val ec = system.dispatcher
   implicit val _db = db

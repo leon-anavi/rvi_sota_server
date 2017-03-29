@@ -2,6 +2,7 @@ package org.genivi.sota.http
 
 import akka.http.scaladsl.server.{AuthorizationFailedRejection, Directive1, Directives}
 import Directives._
+import com.advancedtelematic.libats.auth.AuthedNamespaceScope
 import org.genivi.sota.data.{Namespace, Uuid}
 import org.genivi.sota.rest.Validation._
 
@@ -16,7 +17,7 @@ object UuidDirectives {
                         allowFn: (T => Future[Namespace])): Directive1[T] = {
     (extractor & namespaceExtractor).tflatMap { case (value, ans) =>
       onSuccess(allowFn(value)).flatMap {
-        case namespace if namespace == ans.namespace =>
+        case namespace if namespace.get == ans.namespace.get =>
           provide(value)
         case _ =>
           reject(AuthorizationFailedRejection)

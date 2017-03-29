@@ -8,8 +8,8 @@ package org.genivi.sota.resolver.packages
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
+import com.advancedtelematic.libats.auth.AuthedNamespaceScope
 import org.genivi.sota.common.DeviceRegistry
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.http.ErrorHandler
 import slick.driver.MySQLDriver.api._
 

@@ -8,15 +8,14 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import eu.timepit.refined.api.Refined
 import eu.timepit.refined.string.Regex
 import io.circe.generic.auto._
 import org.genivi.sota.common.DeviceRegistry
 import org.genivi.sota.data.{Namespace, PackageId, Uuid}
 import org.genivi.sota.device_registry.common.{Errors => DeviceRegistryErrors}
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.http.ErrorHandler
-import org.genivi.sota.http.Scopes
 import org.genivi.sota.http.UuidDirectives.extractUuid
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
 import org.genivi.sota.marshalling.RefinedMarshallingSupport._
@@ -28,6 +27,7 @@ import slick.driver.MySQLDriver.api._
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success}
+import org.genivi.sota.http.SomeMagic._
 
 /**
  * API routes for everything related to vehicles: creation, deletion, and package and component association.
@@ -42,6 +42,7 @@ class DeviceDirectives(namespaceExtractor: Directive1[AuthedNamespaceScope],
                         ec: ExecutionContext) {
 
   import Directives._
+  import org.genivi.sota.http.UuidDirectives._
 
   def extractDeviceUuid(ns: Namespace): Directive1[Uuid] = extractUuid.flatMap { deviceId =>
     onComplete(deviceRegistry.fetchDevice(ns, deviceId)).flatMap {

@@ -8,13 +8,13 @@ import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.server.{Directive1, Directives}
 import akka.stream.ActorMaterializer
+import com.advancedtelematic.libats.auth.AuthedNamespaceScope
 import org.genivi.sota.common.DeviceRegistry
 import org.genivi.sota.core.resolver.{Connectivity, ExternalResolverClient}
-import org.genivi.sota.http.AuthedNamespaceScope
 
 import scala.concurrent.ExecutionContext
 import slick.driver.MySQLDriver.api.Database
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 
 class WebService(updateService: UpdateService,
                  resolver: ExternalResolverClient,

@@ -2,7 +2,7 @@ package org.genivi.sota.device_registry.daemon
 
 import akka.Done
 import org.genivi.sota.device_registry.db.DeviceRepository
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages.{DeviceActivated, DeviceSeen}
 import org.slf4j.LoggerFactory
 

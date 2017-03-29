@@ -3,11 +3,11 @@ package org.genivi.sota.device_registry
 import akka.http.scaladsl.marshalling.Marshaller._
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server._
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import io.circe.generic.auto._
 import org.genivi.sota.data.Group.Name
 import org.genivi.sota.data.{Namespace, Uuid}
 import org.genivi.sota.device_registry.db._
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.http.UuidDirectives.{allowExtractor, extractUuid}
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
 import org.genivi.sota.marshalling.RefinedMarshallingSupport._

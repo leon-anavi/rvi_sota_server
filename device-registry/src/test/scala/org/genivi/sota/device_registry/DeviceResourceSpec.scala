@@ -18,7 +18,7 @@ import org.genivi.sota.device_registry.daemon.DeviceSeenListener
 import org.genivi.sota.device_registry.db.DeviceRepository
 import org.genivi.sota.device_registry.db.InstalledPackages.{DevicesCount, InstalledPackage}
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages.DeviceSeen
 import org.scalacheck.Arbitrary._
 import org.scalacheck.Gen

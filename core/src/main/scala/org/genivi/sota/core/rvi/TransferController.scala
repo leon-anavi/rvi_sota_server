@@ -28,9 +28,9 @@ import org.genivi.sota.core.storage.S3PackageStore
 import java.time.Instant
 import java.time.Duration
 
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.core.transfer.DeviceUpdates
 import org.genivi.sota.data.{UpdateStatus, Uuid}
-import org.genivi.sota.messaging.MessageBusPublisher
 
 import scala.collection.immutable.Queue
 import scala.concurrent.duration.FiniteDuration

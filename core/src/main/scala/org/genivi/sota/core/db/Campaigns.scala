@@ -6,7 +6,6 @@ package org.genivi.sota.core.db
 
 import java.time.Instant
 
-import cats.data.Xor
 import java.util.UUID
 
 import org.genivi.sota.core.data.Campaign
@@ -133,8 +132,8 @@ object Campaigns {
     val dbIO = for {
       camp <- fetch(id)
       newMeta <- camp.canLaunch() match {
-        case Xor.Right(()) => DBIO.successful(camp.meta.copy(launched = true))
-        case Xor.Left(err) => DBIO.failed(err)
+        case Right(()) => DBIO.successful(camp.meta.copy(launched = true))
+        case Left(err) => DBIO.failed(err)
       }
       _ <- campaignsMeta.insertOrUpdate(newMeta)
     } yield (camp.copy(meta = newMeta))

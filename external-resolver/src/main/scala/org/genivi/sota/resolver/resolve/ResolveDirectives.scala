@@ -15,10 +15,9 @@ import scala.concurrent.ExecutionContext
 import slick.driver.MySQLDriver.api._
 import Directives._
 import akka.http.scaladsl.unmarshalling.{FromStringUnmarshaller, Unmarshaller}
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.common.DeviceRegistry
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.http.ErrorHandler
-import org.genivi.sota.http.Scopes
 import org.genivi.sota.resolver.db.DbDepResolver
 
 

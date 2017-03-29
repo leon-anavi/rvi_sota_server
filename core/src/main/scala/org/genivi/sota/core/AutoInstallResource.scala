@@ -9,12 +9,11 @@ import akka.http.scaladsl.server.Directives
 import akka.http.scaladsl.server.Directive1
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.common.DeviceRegistry
 import org.genivi.sota.core.db.AutoInstalls
 import org.genivi.sota.data.{DeviceDirectives, Namespace, PackageId, Uuid}
-import org.genivi.sota.http.AuthedNamespaceScope
 import org.genivi.sota.http.ErrorHandler
-import org.genivi.sota.http.Scopes
 import org.genivi.sota.marshalling.CirceMarshallingSupport
 
 import scala.concurrent.ExecutionContext
@@ -45,6 +44,8 @@ class AutoInstallResource
   def removeDevice(ns: Namespace, pkgName: PackageId.Name, dev: Uuid): Route = {
     complete(db.run(AutoInstalls.removeDevice(ns, pkgName, dev)))
   }
+
+  import org.genivi.sota.http.SomeMagic._
 
   val route = ErrorHandler.handleErrors {
     (pathPrefix("auto_install") & namespaceExtractor) { ns =>

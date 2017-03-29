@@ -4,14 +4,30 @@ import akka.http.scaladsl.model.HttpHeader
 import akka.http.scaladsl.model.headers.RawHeader
 import akka.http.scaladsl.server.Directive1
 import com.advancedtelematic.jwt.JsonWebToken
+import com.advancedtelematic.libats.auth.{AuthNamespaceDirectives, AuthedNamespaceScope, IdToken}
 import com.typesafe.config.{Config, ConfigFactory}
 import org.genivi.sota.data.Namespace
 import org.slf4j.LoggerFactory
 
+import scala.language.implicitConversions
 import scala.util.Try
+
+// TODO: Real names for this
+// TODO: Do not use a dedicated namespace for auth
+object SomeMagic {
+  implicit def toMagic(value: com.advancedtelematic.libats.auth.Namespace): Namespace =
+    Namespace(value.get)
+
+  implicit def toMagicMuch(value: AuthedNamespaceScope): Namespace =
+    Namespace(value.namespace.get)
+
+  implicit def fromMagic(value: Namespace): com.advancedtelematic.libats.auth.Namespace =
+    com.advancedtelematic.libats.auth.Namespace(value.get)
+}
 
 object NamespaceDirectives {
   import akka.http.scaladsl.server.Directives._
+  import SomeMagic._
 
   lazy val logger = LoggerFactory.getLogger(this.getClass)
 
@@ -35,10 +51,14 @@ object NamespaceDirectives {
     ConfigFactory.load().getString("auth.protocol") match {
       case "oauth.idtoken" =>
         logger.info("Using namespace from id token")
-        fromHeader.flatMap(AuthNamespaceDirectives.authNamespace[IdToken])
+        fromHeader
+          .map(_.map(fromMagic))
+          .flatMap(AuthNamespaceDirectives.authNamespace[IdToken])
       case "oauth.accesstoken" =>
         logger.info("Using namespace from access token")
-        fromHeader.flatMap(AuthNamespaceDirectives.authNamespace[JsonWebToken])
+        fromHeader
+          .map(_.map(fromMagic))
+          .flatMap(AuthNamespaceDirectives.authNamespace[JsonWebToken])
       case _ =>
         logger.info("Using namespace from default conf extractor")
         defaultNamespaceExtractor

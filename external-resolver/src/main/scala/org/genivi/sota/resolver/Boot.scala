@@ -9,6 +9,7 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.Uri
 import akka.http.scaladsl.server.{Directive1, Directives, Route}
 import akka.stream.ActorMaterializer
+import com.advancedtelematic.libats.auth.AuthedNamespaceScope
 import com.typesafe.config.Config
 import org.genivi.sota.client.DeviceRegistryClient
 import org.genivi.sota.common.DeviceRegistry

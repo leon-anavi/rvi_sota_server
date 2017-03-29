@@ -10,7 +10,7 @@ import org.genivi.sota.core.UpdateService
 import org.genivi.sota.core.data.{Campaign, UpdateRequest}
 import org.genivi.sota.core.db.{Campaigns, Packages, UpdateSpecs}
 import org.genivi.sota.data.{Interval, Namespace, PackageId, Uuid}
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages.{CampaignLaunched, UriWithSimpleEncoding}
 import org.slf4j.LoggerFactory
 import slick.driver.MySQLDriver.api._

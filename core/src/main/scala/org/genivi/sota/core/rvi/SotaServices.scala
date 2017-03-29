@@ -116,7 +116,7 @@ object SotaServices {
     import record._
     import syntax.singleton._
     import io.circe._
-    import io.circe.generic.auto._
+    import io.circe.shapes._
 
     implicit val uriEncoder : Encoder[Uri] = Encoder[String].contramap[Uri]( _.toString() )
 

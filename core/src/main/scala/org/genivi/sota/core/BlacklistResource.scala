@@ -7,17 +7,17 @@ package org.genivi.sota.core
 
 import java.time.Instant
 
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.http.ErrorHandler._
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.{Directive1, Route}
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.core.db.{BlacklistedPackageRequest, BlacklistedPackages, UpdateSpecs}
 import org.genivi.sota.data.{Namespace, PackageId, UpdateStatus}
 import slick.driver.MySQLDriver.api._
 import org.genivi.sota.marshalling.CirceMarshallingSupport._
 import io.circe.generic.auto._
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import org.genivi.sota.messaging.Messages.PackageBlacklisted
 import org.genivi.sota.messaging.Messages._
 import org.genivi.sota.core.transfer.DeviceUpdates
@@ -33,6 +33,7 @@ class BlacklistResource(namespaceExtractor: Directive1[AuthedNamespaceScope],
   import PackagesResource.extractPackageId
   import org.genivi.sota.rest.ResponseConversions._
   import org.genivi.sota.core.db.BlacklistedPackageResponse._
+  import org.genivi.sota.http.SomeMagic._
 
   implicit val _ec = system.dispatcher
 

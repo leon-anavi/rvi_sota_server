@@ -7,11 +7,11 @@ package org.genivi.sota.core
 import akka.actor.ActorSystem
 import akka.http.scaladsl.marshalling.Marshaller._
 import akka.http.scaladsl.server.{Directive1, Directives, Route}
+import com.advancedtelematic.libats.auth.{AuthedNamespaceScope, Scopes}
 import io.circe.generic.auto._
 import org.genivi.sota.common.DeviceRegistry
 import org.genivi.sota.core.db.InstallHistories
 import org.genivi.sota.data.{DeviceDirectives, Uuid}
-import org.genivi.sota.http.{AuthedNamespaceScope, Scopes}
 import org.genivi.sota.marshalling.CirceMarshallingSupport
 import slick.driver.MySQLDriver.api._
 

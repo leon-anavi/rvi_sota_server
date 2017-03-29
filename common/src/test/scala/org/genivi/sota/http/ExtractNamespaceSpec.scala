@@ -9,6 +9,7 @@ import org.scalatest.prop.PropertyChecks
 import org.scalatest.{Matchers, PropSpec}
 import com.advancedtelematic.json.signature.JcaSupport._
 import com.advancedtelematic.jwa.HS256
+import com.advancedtelematic.libats.auth.IdToken
 
 class ExtractNamespaceSpec extends PropSpec
   with PropertyChecks

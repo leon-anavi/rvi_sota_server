@@ -9,6 +9,7 @@ import java.util.UUID
 
 import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
 import cats.Show
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 import io.circe.Json
 import io.circe.syntax._
 import org.genivi.sota.core.data._
@@ -19,7 +20,7 @@ import org.genivi.sota.core.rvi.UpdateReport
 import org.genivi.sota.data.{Namespace, PackageId, UpdateStatus, Uuid}
 import org.genivi.sota.db.SlickExtensions
 import org.genivi.sota.http.Errors.MissingEntity
-import org.genivi.sota.messaging.{MessageBusPublisher, Messages}
+import org.genivi.sota.messaging.Messages
 import slick.dbio.DBIO
 import slick.driver.MySQLDriver.api._
 import org.genivi.sota.refined.PackageIdDatabaseConversions._

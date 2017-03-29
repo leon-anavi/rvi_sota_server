@@ -18,7 +18,6 @@ import akka.http.scaladsl.testkit.ScalatestRouteTest
 import akka.stream.scaladsl.FileIO
 import akka.testkit.TestKitBase
 import akka.util.ByteString
-import cats.data.Xor
 import io.circe.Json
 import io.circe.generic.auto._
 import org.genivi.sota.DefaultPatience
@@ -117,7 +116,7 @@ class PackagesResourceSpec extends FunSuite
 
         val responseP = responseAs[List[Json]]
           .find { j =>
-            j.cursor.downField("id").get.as[PackageId] === Xor.right(pkg.id)
+            j.cursor.downField("id").get.as[PackageId] === Right(pkg.id)
           }
           .map { pp =>
             pp.cursor.downField("isBlackListed").get.as[Boolean].toOption.get
@@ -138,7 +137,7 @@ class PackagesResourceSpec extends FunSuite
 
         val responseP = responseAs[List[Json]]
           .find { j =>
-            j.cursor.downField("id").get.as[PackageId] === Xor.right(pkg.id)
+            j.cursor.downField("id").get.as[PackageId] === Right(pkg.id)
           }
           .map { pp =>
             pp.cursor.downField("isBlackListed").get.as[Boolean].toOption.get

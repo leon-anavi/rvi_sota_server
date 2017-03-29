@@ -17,7 +17,7 @@ import org.genivi.sota.data.{DeviceGenerators, PackageId, UpdateStatus}
 import org.scalatest.{FunSuite, ShouldMatchers}
 import org.scalatest.concurrent.ScalaFutures
 import org.genivi.sota.http.NamespaceDirectives._
-import org.genivi.sota.messaging.MessageBusPublisher
+import com.advancedtelematic.libats.messaging.MessageBusPublisher
 
 class BlacklistResourceSpec extends FunSuite
   with ScalatestRouteTest

@@ -14,7 +14,6 @@ import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.http.scaladsl.server.{AuthorizationFailedRejection, Directive0, Directives}
 import akka.http.scaladsl.util.FastFuture
 import akka.stream.ActorMaterializer
-import cats.data.Xor
 import com.advancedtelematic.akka.http.jwt.JwtDirectives
 import com.advancedtelematic.json.signature.JcaSupport
 import com.advancedtelematic.jwa.HS256
@@ -29,6 +28,7 @@ import org.genivi.sota.marshalling.CirceMarshallingSupport
 import org.slf4j.LoggerFactory
 import scala.concurrent.{ExecutionContext,Future}
 import scala.util.{Failure,Success}
+import cats.syntax.either._
 
 case class ValidationResponse(active: Boolean)
 
@@ -94,9 +94,10 @@ class TokenValidator(implicit system: ActorSystem, mat: ActorMaterializer) {
   def localValidate: Directive0 = {
     import JwtDirectives._
     import JcaSupport._
+    import cats.syntax.either._
 
-    val verifier: String Xor Jws.JwsVerifier = for {
-      secret <- Xor
+    val verifier: String Either Jws.JwsVerifier = for {
+      secret <- Either
                  .catchOnly[ConfigException] {config.getString("auth.token.secret")}
                  .leftMap(_.getMessage)
                  .map[SecretKey](x => new SecretKeySpec(Base64.decodeBase64(x), "HMAC"))
