@@ -15,21 +15,27 @@ The default username is `genivi`, and the default password is `genivirocks!`. Th
 
 == Managing Vehicles
 
-=== Adding a VIN
+Although rvi_sota_server was designed with vehicles in mind, and the UI refers to all connected devices as "Vehicles" or "VINs", any type of device that runs linux can be managed. This guide does will refer to all devices as "Vehicles", for conformance with the UI.
 
-To add a VIN, click the *Vehicles* tab at the left of the page. Enter a valid VIN number (exactly 17 characters long and consisting only of alphanumeric characters) in the *Vehicle Name* field, and click the *Add Vehicle* button. If the addition was successful, the newly added VIN will appear in the list at the bottom of the page.
+Vehicles are randomly assigned a UUID upon creation; this is the identifier that is used internally. The friendly name is defined by the user; it could be a VIN, a serial number, a device name, or anything else.
 
-=== Adding components and packages to a VIN
+=== Adding a Vehicle
 
-You might need to let SOTA know about the software packages and hardware components already installed on a particular VIN. To do so, click on any VIN from the vehicles page, and click *Add Installed Package* or *Add Component*.
+To add a vehicle, click the *Vehicles* tab at the left of the page. Enter a name in the *Vehicle Name* field, and click the *Add Vehicle* button. If the addition was successful, the newly added vehicle will appear in the list at the bottom of the page.
+
+=== Adding components and packages to a vehicle
+
+You might need to let SOTA know about the software packages and hardware components already installed on a particular vehicle. To do so, click on any vehicle from the vehicles page, and click *Add Installed Package* or *Add Component*.
 
 == Managing Filters
 
-You can create filters to powerfully select sub-groups of VINs. For example, you might wish to create a filter that matches only vehicles that have the hardware component **AcmeDVDPlayer**, so that you can send a firmware update to only the relevant vehicles.
+You can create filters to powerfully select sub-groups of vehicles. For example, you might wish to create a filter that matches only vehicles that have the hardware component **AcmeDVDPlayer**, so that you can send a firmware update to only the relevant vehicles.
 
 === Filter syntax
 
 SOTA has a filter syntax to create these filters; currently the valid terms are **vin_matches**, **has_package**, and **has_component**, and the boolean operators **NOT**, **AND**, and **OR**. **vin_matches**, **has_package**, and **has_component** take regular expressions (enclosed in quotes) as arguments.
+
+NOTE: **vin_matches** is named this way for historical reasons. It operates on vehicle names--the one defined by the user upon vehicle creation.
 
 .Example
 ****
@@ -56,7 +62,9 @@ From the *Filters* tab, click details next to the filter you wish to associate. 
 
 === Adding a software package
 
-To add a software package, you will need to upload a package file and give it a unique **Package ID**. A package ID consists of a package name and a version number. The name must be alphanumeric, and the version must consist of three digits separated by periods. (For example, 3.0.4 and 0.115.33 are both valid version numbers, but 1.3 and 2.7.22b are not.)
+To add a software package, you will need to upload a package file and give it a unique **Package ID**. A package ID consists of a package name and a version number. The name must be alphanumeric, and the version must conform to the configured versioning scheme restriction.
+
+TIP: The versioning schemes that rvi_sota_server accepts as valid are defined in the application configuration. See link:../dev/application-configuration-options.html[Application configuration options] for more details. The default restriction is that version numbers must match the regular expression `^\d+\.\d+\.\d+$`.
 
 Click the *Packages* tab at the left of the page. Enter a Package Name, Version, and optionally a description and vendor name in the appropriate fields. Then, select a file to upload. Click **Add Package**. If the upload was successful, you will see the package added to the list at the bottom of the page.
 
