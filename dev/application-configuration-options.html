@@ -169,12 +169,12 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">HTTP idle timeout.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BIND_HOST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">“0.0.0.0”</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Hosts Core should listen on.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BIND_PORT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Port number Core should run on.</p></td>
 </tr>
@@ -214,14 +214,39 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">URI to register with RVI for SOTA services. Should normally be the rvi endpoint at Core’s ip and port, e.g. “http://core:8080/rvi”.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RESOLVER_API_URI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"http://localhost:8081"</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Location and port of the Resolver.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_RESOLVER_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the Resolver.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_API_URI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">"http://localhost:8083"</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Location and port of the Device Registry.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_RESOLVER_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the Resolver.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8083</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the Device Registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the Device Registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">USE_USER_PROFILE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not the User Profile service should be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">USER_PROFILE_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the User Profile.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">USER_PROFILE_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the User Profile.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PACKAGE_STORAGE_PATH</p></td>
@@ -232,6 +257,21 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">PACKAGES_VERSION_FORMAT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">"^\d+\.\d+\.\d+$"</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A regular expression that package version numbers will be validated against.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PACKAGES_PATH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/usr/local/packages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location to store packages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PACKAGES_EXTENSION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rpm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Package container format.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PACKAGES_CHECKSUM_EXTENSION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sha1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Checksum extension for packages.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CORE_DB_URL</p></td>
@@ -269,7 +309,7 @@
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CORE_DB_MIGRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DB_MIGRATE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FALSE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">When set to true, runs database migrations on startup.</p></td>
 </tr>
@@ -292,6 +332,36 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">SCOPES_DOMAIN</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">empty string</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Config option for a future feature. Currently unused.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTH_PLUS_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of Auth Plus.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTH_PLUS_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of Auth Plus.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTH_PLUS_CLIENT_ID</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Auth Plus client id.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTH_PLUS_CLIENT_SECRET</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Auth Plus client secret.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">USE_TUF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not TUF should be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TUF_REPOSERVER_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the TUF service.</p></td>
 </tr>
 </tbody>
 </table>
@@ -322,7 +392,7 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JWT_SECRET</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A secret for JSON Web Tokens.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SCOPES_DOMAIN</p></td>
@@ -330,17 +400,22 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Config option for a future feature. Currently unused.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_API_URI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:8083" class="bare">http://localhost:8083</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The location of the device registry api.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8083</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the Device Registry.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the Device Registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BIND_HOST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Host to listen for connections on.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BIND_PORT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Port to listen on.</p></td>
 </tr>
@@ -426,12 +501,12 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">Config option for a future feature. Currently unused.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BIND_HOST</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Hosts device registry should listen on.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BIND_PORT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8083</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Port number device registry should run on.</p></td>
 </tr>
@@ -476,7 +551,7 @@
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_DB_MIGRATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DB_MIGRATE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FALSE</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">When set to true, runs database migrations on startup.</p></td>
 </tr>
@@ -484,6 +559,11 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">PACKAGES_VERSION_FORMAT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">"^\d+\.\d+\.\d+$"</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A regular expression that package version numbers will be validated against.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TEST_RANDOM_MINSUCCESSFUL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum number of successes for property tests</p></td>
 </tr>
 </tbody>
 </table>
@@ -513,7 +593,7 @@
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LDAP_HOST</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">“localhost”</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The hostname of an LDAP server.</p></td>
 </tr>
 <tr>
@@ -567,6 +647,21 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">If set to true, will run an in-memory LDAP server with a few hard-coded users, for easy testing.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CORE_TEST_DB_URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"jdbc:mariadb://localhost:3306/sota_core"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The URL of the Core test database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CORE_TEST_DB_USER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">“sota”</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Username with access to the Core test database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CORE_TEST_DB_PASSWORD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">“s0ta”</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for Core test database user.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CORE_API_URI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">"http://localhost:8080"</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Core’s URI.</p></td>
@@ -580,6 +675,51 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_API_URI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">"http://localhost:8083"</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Device Registry’s URI.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_CORE_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8080</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the Core.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_CORE_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the Core.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_CORE_API_URI</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uri of the Core.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_RESOLVER_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8081</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the Resolver.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_RESOLVER_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the Resolver.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SOTA_RESOLVER_API_URI</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uri of the Resolver.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_PORT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8083</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port of the Device Registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_HOST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">localhost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location of the Device Registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEVICE_REGISTRY_API_URI</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uri of the Device Registry.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOCKER_IP</p></td>
