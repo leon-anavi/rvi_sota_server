@@ -93,11 +93,8 @@ class CampaignResource(namespaceExtractor: Directive1[AuthedNamespaceScope],
   }
 
   def toggleDelta(id: Campaign.Id): Route = {
-    parameter('deltaFromVersion.as[Commit].?) {
-      case Some(version) =>
-        complete(db.run(Campaigns.setDeltaFrom(id, Some(version))))
-      case None =>
-        complete(db.run(Campaigns.setDeltaFrom(id, None)))
+    parameter('deltaFromVersion.as[Commit].?) { v =>
+      complete(db.run(Campaigns.setDeltaFrom(id, v)))
     }
   }
 
